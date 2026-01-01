@@ -1,8 +1,69 @@
-import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { reactRouter } from '@react-router/dev/vite';
+import UnoCSS from 'unocss/vite';
+import { defineConfig, type ViteDevServer } from 'vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { optimizeCssModules } from 'vite-plugin-optimize-css-modules';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-export default defineConfig({
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+export default defineConfig((config) => {
+  return {
+    build: {
+      target: 'esnext',
+    },
+    optimizeDeps: {
+      exclude: ['@webcontainer/api'],
+    },
+    plugins: [
+      nodePolyfills({
+        include: ['path', 'buffer'],
+      }),
+      reactRouter(),
+      UnoCSS(),
+      tsconfigPaths(),
+      chrome129IssuePlugin(),
+      crossOriginIsolationPlugin(),
+      config.mode === 'production' && optimizeCssModules({ apply: 'build' }),
+    ],
+  };
 });
+
+function crossOriginIsolationPlugin() {
+  return {
+    name: 'cross-origin-isolation-plugin',
+    configureServer(server: ViteDevServer) {
+      server.middlewares.use((req, res, next) => {
+        res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+        res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+        next();
+      });
+    },
+  };
+}
+
+function chrome129IssuePlugin() {
+  return {
+    name: 'chrome129IssuePlugin',
+    configureServer(server: ViteDevServer) {
+      server.middlewares.use((req, res, next) => {
+        const raw = req.headers['user-agent']?.match(
+          /Chrom(e|ium)\/([0-9]+)\./
+        );
+
+        if (raw) {
+          const version = parseInt(raw[2], 10);
+
+          if (version === 129) {
+            res.setHeader('content-type', 'text/html');
+            res.end(
+              '<body><h1>Please use Chrome Canary for testing.</h1><p>Chrome 129 has an issue with JavaScript modules & Vite local development, see <a href="https://github.com/stackblitz/bolt.new/issues/86#issuecomment-2395519258">for more information.</a></p><p><b>Note:</b> This only impacts <u>local development</u>. `pnpm run build` and `pnpm run start` will work fine in this browser.</p></body>'
+            );
+
+            return;
+          }
+        }
+
+        next();
+      });
+    },
+  };
+}
