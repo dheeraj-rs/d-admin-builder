@@ -1,7 +1,19 @@
-import { atom, map, type MapStore, type ReadableAtom, type WritableAtom } from 'nanostores';
-import type { EditorDocument, ScrollPosition } from '~/components/editor/codemirror/CodeMirrorEditor';
+import {
+  atom,
+  map,
+  type MapStore,
+  type ReadableAtom,
+  type WritableAtom,
+} from 'nanostores';
+import type {
+  EditorDocument,
+  ScrollPosition,
+} from '~/components/editor/codemirror/CodeMirrorEditor';
 import { ActionRunner } from '~/lib/runtime/action-runner';
-import type { ActionCallbackData, ArtifactCallbackData } from '~/lib/runtime/message-parser';
+import type {
+  ActionCallbackData,
+  ArtifactCallbackData,
+} from '~/lib/runtime/message-parser';
 import { webcontainer } from '~/lib/webcontainer';
 import type { ITerminal } from '~/types/terminal';
 import { unreachable } from '~/utils/unreachable';
@@ -31,9 +43,12 @@ export class WorkbenchStore {
 
   artifacts: Artifacts = import.meta.hot?.data.artifacts ?? map({});
 
-  showWorkbench: WritableAtom<boolean> = import.meta.hot?.data.showWorkbench ?? atom(false);
-  currentView: WritableAtom<WorkbenchViewType> = import.meta.hot?.data.currentView ?? atom('code');
-  unsavedFiles: WritableAtom<Set<string>> = import.meta.hot?.data.unsavedFiles ?? atom(new Set<string>());
+  showWorkbench: WritableAtom<boolean> =
+    import.meta.hot?.data.showWorkbench ?? atom(false);
+  currentView: WritableAtom<WorkbenchViewType> =
+    import.meta.hot?.data.currentView ?? atom('code');
+  unsavedFiles: WritableAtom<Set<string>> =
+    import.meta.hot?.data.unsavedFiles ?? atom(new Set<string>());
   modifiedFiles = new Set<string>();
   artifactIdList: string[] = [];
 
@@ -89,7 +104,10 @@ export class WorkbenchStore {
   setDocuments(files: FileMap) {
     this.#editorStore.setDocuments(files);
 
-    if (this.#filesStore.filesCount > 0 && this.currentDocument.get() === undefined) {
+    if (
+      this.#filesStore.filesCount > 0 &&
+      this.currentDocument.get() === undefined
+    ) {
       // we find the first file and select it
       for (const [filePath, dirent] of Object.entries(files)) {
         if (dirent?.type === 'file') {
@@ -112,7 +130,8 @@ export class WorkbenchStore {
     }
 
     const originalContent = this.#filesStore.getFile(filePath)?.content;
-    const unsavedChanges = originalContent !== undefined && originalContent !== newContent;
+    const unsavedChanges =
+      originalContent !== undefined && originalContent !== newContent;
 
     this.#editorStore.updateFile(filePath, newContent);
 
@@ -121,7 +140,10 @@ export class WorkbenchStore {
     if (currentDocument) {
       const previousUnsavedFiles = this.unsavedFiles.get();
 
-      if (unsavedChanges && previousUnsavedFiles.has(currentDocument.filePath)) {
+      if (
+        unsavedChanges &&
+        previousUnsavedFiles.has(currentDocument.filePath)
+      ) {
         return;
       }
 
@@ -229,11 +251,16 @@ export class WorkbenchStore {
       id,
       title,
       closed: false,
-      runner: new ActionRunner(webcontainer),
+      runner: new ActionRunner(webcontainer, (data) =>
+        this.#terminalStore.sendDataToTerminal(data)
+      ),
     });
   }
 
-  updateArtifact({ messageId }: ArtifactCallbackData, state: Partial<ArtifactUpdateState>) {
+  updateArtifact(
+    { messageId }: ArtifactCallbackData,
+    state: Partial<ArtifactUpdateState>
+  ) {
     const artifact = this.#getArtifact(messageId);
 
     if (!artifact) {

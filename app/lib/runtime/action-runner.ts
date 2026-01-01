@@ -44,11 +44,16 @@ type ActionsMap = MapStore<Record<string, ActionState>>;
 export class ActionRunner {
   #webcontainer: Promise<WebContainer>;
   #currentExecutionPromise: Promise<void> = Promise.resolve();
+  #onTerminal?: (data: string) => void;
 
   actions: ActionsMap = map({});
 
-  constructor(webcontainerPromise: Promise<WebContainer>) {
+  constructor(
+    webcontainerPromise: Promise<WebContainer>,
+    onTerminal?: (data: string) => void
+  ) {
     this.#webcontainer = webcontainerPromise;
+    this.#onTerminal = onTerminal;
   }
 
   addAction(data: ActionCallbackData) {
@@ -156,8 +161,10 @@ export class ActionRunner {
 
     process.output.pipeTo(
       new WritableStream({
-        write(data) {
+        write: (data) => {
           console.log(data);
+
+          this.#onTerminal?.(data);
 
           // accumulate output for dev server detection
           if (isDevServer && !devServerStarted) {
@@ -185,7 +192,7 @@ export class ActionRunner {
           clearInterval(checkInterval);
           logger.debug('Dev server timeout - assuming started');
           resolve();
-        }, 30000);
+        }, 600_000);
       });
 
       /**

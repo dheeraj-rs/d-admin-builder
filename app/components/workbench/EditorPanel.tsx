@@ -133,7 +133,7 @@ export const EditorPanel = memo(
                   Files
                 </PanelHeader>
                 <FileTree
-                  className="h-full"
+                  className="h-full overflow-y-auto"
                   files={files}
                   hideRoot
                   unsavedFiles={unsavedFiles}

@@ -40,27 +40,42 @@ const messageParser = new StreamingMessageParser({
 });
 
 export function useMessageParser() {
-  const [parsedMessages, setParsedMessages] = useState<{ [key: number]: string }>({});
+  const [parsedMessages, setParsedMessages] = useState<{
+    [key: number]: string;
+  }>({});
 
-  const parseMessages = useCallback((messages: Message[], isLoading: boolean) => {
-    let reset = false;
+  const parseMessages = useCallback(
+    (messages: Message[], isLoading: boolean) => {
+      let reset = false;
 
-    if (import.meta.env.DEV && !isLoading) {
-      reset = true;
-      messageParser.reset();
-    }
-
-    for (const [index, message] of messages.entries()) {
-      if (message.role === 'assistant') {
-        const newParsedContent = messageParser.parse(message.id, message.content);
-
-        setParsedMessages((prevParsed) => ({
-          ...prevParsed,
-          [index]: !reset ? (prevParsed[index] || '') + newParsedContent : newParsedContent,
-        }));
+      if (import.meta.env.DEV && !isLoading) {
+        reset = true;
+        messageParser.reset();
       }
-    }
-  }, []);
+
+      let previousMessageId: string | undefined;
+
+      for (const [index, message] of messages.entries()) {
+        if (message.role === 'assistant') {
+          const newParsedContent = messageParser.parse(
+            message.id,
+            message.content,
+            previousMessageId
+          );
+
+          setParsedMessages((prevParsed) => ({
+            ...prevParsed,
+            [index]: !reset
+              ? (prevParsed[index] || '') + newParsedContent
+              : newParsedContent,
+          }));
+
+          previousMessageId = message.id;
+        }
+      }
+    },
+    []
+  );
 
   return { parsedMessages, parseMessages };
 }
