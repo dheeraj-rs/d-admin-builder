@@ -38,7 +38,7 @@ describe('StreamingMessageParser', () => {
         'Foo bar <span>some text</span>',
       ],
     ])(
-      'should correctly parse chunks and strip out bolt artifacts (%#)',
+      'should correctly parse chunks and strip out D admin artifacts (%#)',
       (input, expected) => {
         runTest(input, expected);
       }
