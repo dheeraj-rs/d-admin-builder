@@ -25,7 +25,7 @@ export type StreamingOptions = Omit<Parameters<typeof _streamText>[0], 'model'>;
 
 export type AIProvider = 'anthropic' | 'google';
 
-export async function streamText(
+export function streamText(
   messages: Messages,
   env: Env,
   provider: AIProvider = 'anthropic',
@@ -42,22 +42,9 @@ export async function streamText(
       parts: [{ text: msg.content }],
     }));
 
-    // use streaming API - returns AsyncGenerator directly
-
-    // model: 'gemini-2.5-flash',
-
-    const stream = await ai.models.generateContentStream({
-      model: 'gemini-flash-lite-latest',
-      contents,
-      config: {
-        maxOutputTokens: MAX_TOKENS,
-        systemInstruction: getSystemPrompt(),
-      },
-    });
-
     let fullText = '';
 
-    // create AI SDK compatible stream
+    // create AI SDK compatible stream - handle async initialization inside
     const customStream = {
       toAIStream: () => {
         const encoder = new TextEncoder();
@@ -65,6 +52,16 @@ export async function streamText(
         return new ReadableStream({
           async start(controller) {
             try {
+              // initialize stream inside the ReadableStream
+              const stream = await ai.models.generateContentStream({
+                model: 'gemini-flash-lite-latest',
+                contents,
+                config: {
+                  maxOutputTokens: MAX_TOKENS,
+                  systemInstruction: getSystemPrompt(),
+                },
+              });
+
               // iterate over the AsyncGenerator directly
               for await (const chunk of stream) {
                 const text = chunk.text;
@@ -105,7 +102,7 @@ export async function streamText(
         const stream = customStream.toAIStream();
         return new Response(stream, {
           headers: {
-            'Content-Type': 'text/x-unknown', // Use a neutral content type or one expected by the client if known
+            'Content-Type': 'text/x-unknown',
             'X-Vercel-AI-Data-Stream': 'v1',
           },
         });

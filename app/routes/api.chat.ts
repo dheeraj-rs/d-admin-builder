@@ -15,7 +15,7 @@ async function chatAction({ request }: any) {
   };
 
   try {
-    const result = await streamText(messages, process.env as any, provider);
+    const result = streamText(messages, process.env as any, provider);
 
     return result.toDataStreamResponse();
   } catch (error: any) {

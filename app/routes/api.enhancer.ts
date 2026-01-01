@@ -1,4 +1,4 @@
-import { StreamingTextResponse, parseStreamPart } from 'ai';
+import { parseStreamPart } from 'ai';
 import { streamText } from '~/lib/.server/llm/stream-text';
 import { stripIndents } from '~/utils/stripIndent';
 
@@ -13,7 +13,7 @@ async function enhancerAction({ request }: any) {
   const { message } = (await request.json()) as { message: string };
 
   try {
-    const result = await streamText(
+    const result = streamText(
       [
         {
           role: 'user',
@@ -47,7 +47,11 @@ async function enhancerAction({ request }: any) {
 
     const transformedStream = result.toAIStream().pipeThrough(transformStream);
 
-    return new StreamingTextResponse(transformedStream);
+    return new Response(transformedStream, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+      },
+    });
   } catch (error) {
     console.log(error);
 
