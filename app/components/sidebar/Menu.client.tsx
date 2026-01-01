@@ -114,7 +114,7 @@ export function Menu() {
             href="/"
             className="flex gap-2 items-center bg-builder-elements-sidebar-buttonBackgroundDefault text-builder-elements-sidebar-buttonText hover:bg-builder-elements-sidebar-buttonBackgroundHover rounded-md p-2 transition-theme"
           >
-            <span className="inline-block i-bolt:chat scale-110" />
+            <span className="inline-block i-ph:chat scale-110" />
             Start new chat
           </a>
         </div>

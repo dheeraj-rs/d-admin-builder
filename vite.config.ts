@@ -9,6 +9,7 @@ export default defineConfig((config) => {
   return {
     build: {
       target: 'esnext',
+      chunkSizeWarningLimit: 2000,
     },
     optimizeDeps: {
       exclude: ['@webcontainer/api'],

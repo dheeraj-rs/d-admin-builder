@@ -3,9 +3,9 @@ import { chatStore } from '~/lib/stores/chat';
 import { workbenchStore } from '~/lib/stores/workbench';
 import { classNames } from '~/utils/classNames';
 
-interface HeaderActionButtonsProps {}
+interface HeaderActionButtonsProps { }
 
-export function HeaderActionButtons({}: HeaderActionButtonsProps) {
+export function HeaderActionButtons({ }: HeaderActionButtonsProps) {
   const showWorkbench = useStore(workbenchStore.showWorkbench);
   const { showChat } = useStore(chatStore);
 
@@ -23,7 +23,7 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
             }
           }}
         >
-          <div className="i-bolt:chat text-sm" />
+          <div className="i-ph:chat text-sm" />
         </Button>
         <div className="w-[1px] bg-builder-elements-borderColor" />
         <Button
