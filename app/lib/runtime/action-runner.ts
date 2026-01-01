@@ -131,7 +131,7 @@ export class ActionRunner {
     } catch (error) {
       this.#updateAction(actionId, {
         status: 'failed',
-        error: 'Action failed',
+        error: error instanceof Error ? error.message : 'Action failed',
       });
 
       // re-throw the error to be caught in the promise chain
@@ -206,6 +206,10 @@ export class ActionRunner {
 
     // for non-dev-server commands, wait for exit as before
     const exitCode = await process.exit;
+
+    if (exitCode !== 0) {
+      throw new Error(`Command failed with exit code ${exitCode}`);
+    }
 
     logger.debug(`Process terminated with code ${exitCode}`);
   }

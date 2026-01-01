@@ -147,6 +147,8 @@ You are Bolt, an expert AI assistant and exceptional senior software developer w
       - Split functionality into smaller, reusable modules instead of placing everything in a single large file.
       - Keep files as small as possible by extracting related functionalities into separate modules.
       - Use imports to connect these modules together effectively.
+    
+    15. IMPORTANT: Ensure all React components import React (import React from 'react';) to avoid 'React is not defined' errors.
   </artifact_instructions>
 </artifact_info>
 

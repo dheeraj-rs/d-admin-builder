@@ -87,7 +87,7 @@ export function useChatHistory() {
         description.set(firstArtifact?.title);
       }
 
-      if (initialMessages.length === 0 && !chatId.get()) {
+      if (!chatId.get()) {
         const nextId = await getNextId(db);
 
         chatId.set(nextId);
