@@ -31,9 +31,18 @@ export function streamText(
   provider: AIProvider = 'anthropic',
   options?: StreamingOptions
 ) {
+  console.log('[streamText] Starting with provider:', provider);
+
   if (provider === 'google') {
     // server-side Google GenAI SDK implementation
     const apiKey = getGoogleAPIKey(env);
+
+    if (!apiKey) {
+      console.error('[streamText] Missing Google API key');
+      throw new Error('Missing Google API key');
+    }
+
+    console.log('[streamText] Google API key found');
     const ai = new GoogleGenAI({ apiKey });
 
     // convert messages to Google format
@@ -112,9 +121,18 @@ export function streamText(
     return customStream;
   }
 
+  console.log('[streamText] Using Anthropic provider');
+
   const apiKey = getAPIKey(env);
-  if (!apiKey) throw new Error('Missing API Key');
+  if (!apiKey) {
+    console.error('[streamText] Missing Anthropic API key');
+    throw new Error('Missing Anthropic API Key');
+  }
+
+  console.log('[streamText] Anthropic API key found');
   const model = getAnthropicModel(apiKey);
+
+  console.log('[streamText] Creating Anthropic stream');
 
   return _streamText({
     model: model as any,
