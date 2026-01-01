@@ -4,6 +4,8 @@
 
 .shiki {
   &:not(:has(.actions), .actions *) {
-    background-color: var(--builder-elements-messages-code-background) !important;
+    background-color: var(
+      --builder-elements-messages-code-background
+    ) !important;
   }
 }

@@ -46,7 +46,7 @@ export async function setMessages(
   id: string,
   messages: Message[],
   urlId?: string,
-  description?: string,
+  description?: string
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     const transaction = db.transaction('chats', 'readwrite');
@@ -65,11 +65,17 @@ export async function setMessages(
   });
 }
 
-export async function getMessages(db: IDBDatabase, id: string): Promise<ChatHistoryItem> {
+export async function getMessages(
+  db: IDBDatabase,
+  id: string
+): Promise<ChatHistoryItem> {
   return (await getMessagesById(db, id)) || (await getMessagesByUrlId(db, id));
 }
 
-export async function getMessagesByUrlId(db: IDBDatabase, id: string): Promise<ChatHistoryItem> {
+export async function getMessagesByUrlId(
+  db: IDBDatabase,
+  id: string
+): Promise<ChatHistoryItem> {
   return new Promise((resolve, reject) => {
     const transaction = db.transaction('chats', 'readonly');
     const store = transaction.objectStore('chats');
@@ -81,7 +87,10 @@ export async function getMessagesByUrlId(db: IDBDatabase, id: string): Promise<C
   });
 }
 
-export async function getMessagesById(db: IDBDatabase, id: string): Promise<ChatHistoryItem> {
+export async function getMessagesById(
+  db: IDBDatabase,
+  id: string
+): Promise<ChatHistoryItem> {
   return new Promise((resolve, reject) => {
     const transaction = db.transaction('chats', 'readonly');
     const store = transaction.objectStore('chats');
@@ -110,7 +119,10 @@ export async function getNextId(db: IDBDatabase): Promise<string> {
     const request = store.getAllKeys();
 
     request.onsuccess = () => {
-      const highestId = request.result.reduce((cur, acc) => Math.max(+cur, +acc), 0);
+      const highestId = request.result.reduce(
+        (cur, acc) => Math.max(+cur, +acc),
+        0
+      );
       resolve(String(+highestId + 1));
     };
 

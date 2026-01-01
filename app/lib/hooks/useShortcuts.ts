@@ -34,8 +34,10 @@ export function useShortcuts(): void {
           shortcut.key.toLowerCase() === key.toLowerCase() &&
           (shortcut.ctrlOrMetaKey
             ? ctrlKey || metaKey
-            : (shortcut.ctrlKey === undefined || shortcut.ctrlKey === ctrlKey) &&
-              (shortcut.metaKey === undefined || shortcut.metaKey === metaKey)) &&
+            : (shortcut.ctrlKey === undefined ||
+                shortcut.ctrlKey === ctrlKey) &&
+              (shortcut.metaKey === undefined ||
+                shortcut.metaKey === metaKey)) &&
           (shortcut.shiftKey === undefined || shortcut.shiftKey === shiftKey) &&
           (shortcut.altKey === undefined || shortcut.altKey === altKey)
         ) {

@@ -1,4 +1,3 @@
-/* Color Tokens Light Theme */
 :root,
 :root[data-theme='light'] {
   --builder-elements-borderColor: theme('colors.alpha.gray.10');
@@ -17,15 +16,21 @@
   --builder-elements-code-text: theme('colors.gray.950');
 
   --builder-elements-button-primary-background: theme('colors.alpha.accent.10');
-  --builder-elements-button-primary-backgroundHover: theme('colors.alpha.accent.20');
+  --builder-elements-button-primary-backgroundHover: theme(
+    'colors.alpha.accent.20'
+  );
   --builder-elements-button-primary-text: theme('colors.accent.500');
 
   --builder-elements-button-secondary-background: theme('colors.alpha.gray.5');
-  --builder-elements-button-secondary-backgroundHover: theme('colors.alpha.gray.10');
+  --builder-elements-button-secondary-backgroundHover: theme(
+    'colors.alpha.gray.10'
+  );
   --builder-elements-button-secondary-text: theme('colors.gray.950');
 
   --builder-elements-button-danger-background: theme('colors.alpha.red.10');
-  --builder-elements-button-danger-backgroundHover: theme('colors.alpha.red.20');
+  --builder-elements-button-danger-backgroundHover: theme(
+    'colors.alpha.red.20'
+  );
   --builder-elements-button-danger-text: theme('colors.red.500');
 
   --builder-elements-item-contentDefault: theme('colors.alpha.gray.50');
@@ -44,7 +49,9 @@
   --builder-elements-artifacts-backgroundHover: theme('colors.alpha.gray.2');
   --builder-elements-artifacts-borderColor: var(--builder-elements-borderColor);
   --builder-elements-artifacts-inlineCode-background: theme('colors.gray.100');
-  --builder-elements-artifacts-inlineCode-text: var(--builder-elements-textPrimary);
+  --builder-elements-artifacts-inlineCode-text: var(
+    --builder-elements-textPrimary
+  );
 
   --builder-elements-actions-background: theme('colors.white');
   --builder-elements-actions-code-background: theme('colors.gray.800');
@@ -66,18 +73,30 @@
   --builder-elements-prompt-background: theme('colors.alpha.white.80');
 
   --builder-elements-sidebar-dropdownShadow: theme('colors.alpha.gray.10');
-  --builder-elements-sidebar-buttonBackgroundDefault: theme('colors.alpha.accent.10');
-  --builder-elements-sidebar-buttonBackgroundHover: theme('colors.alpha.accent.20');
+  --builder-elements-sidebar-buttonBackgroundDefault: theme(
+    'colors.alpha.accent.10'
+  );
+  --builder-elements-sidebar-buttonBackgroundHover: theme(
+    'colors.alpha.accent.20'
+  );
   --builder-elements-sidebar-buttonText: theme('colors.accent.700');
 
   --builder-elements-preview-addressBar-background: theme('colors.gray.100');
-  --builder-elements-preview-addressBar-backgroundHover: theme('colors.alpha.gray.5');
+  --builder-elements-preview-addressBar-backgroundHover: theme(
+    'colors.alpha.gray.5'
+  );
   --builder-elements-preview-addressBar-backgroundActive: theme('colors.white');
-  --builder-elements-preview-addressBar-text: var(--builder-elements-textSecondary);
-  --builder-elements-preview-addressBar-textActive: var(--builder-elements-textPrimary);
+  --builder-elements-preview-addressBar-text: var(
+    --builder-elements-textSecondary
+  );
+  --builder-elements-preview-addressBar-textActive: var(
+    --builder-elements-textPrimary
+  );
 
   --builder-elements-terminals-background: theme('colors.white');
-  --builder-elements-terminals-buttonBackground: var(--builder-elements-bg-depth-4);
+  --builder-elements-terminals-buttonBackground: var(
+    --builder-elements-bg-depth-4
+  );
 
   --builder-elements-cta-background: theme('colors.gray.100');
   --builder-elements-cta-text: theme('colors.gray.950');
@@ -123,15 +142,21 @@
   --builder-elements-code-text: theme('colors.white');
 
   --builder-elements-button-primary-background: theme('colors.alpha.accent.10');
-  --builder-elements-button-primary-backgroundHover: theme('colors.alpha.accent.20');
+  --builder-elements-button-primary-backgroundHover: theme(
+    'colors.alpha.accent.20'
+  );
   --builder-elements-button-primary-text: theme('colors.accent.500');
 
   --builder-elements-button-secondary-background: theme('colors.alpha.white.5');
-  --builder-elements-button-secondary-backgroundHover: theme('colors.alpha.white.10');
+  --builder-elements-button-secondary-backgroundHover: theme(
+    'colors.alpha.white.10'
+  );
   --builder-elements-button-secondary-text: theme('colors.white');
 
   --builder-elements-button-danger-background: theme('colors.alpha.red.10');
-  --builder-elements-button-danger-backgroundHover: theme('colors.alpha.red.20');
+  --builder-elements-button-danger-backgroundHover: theme(
+    'colors.alpha.red.20'
+  );
   --builder-elements-button-danger-text: theme('colors.red.500');
 
   --builder-elements-item-contentDefault: theme('colors.alpha.white.50');
@@ -159,7 +184,9 @@
   --builder-elements-messages-linkColor: theme('colors.accent.500');
   --builder-elements-messages-code-background: theme('colors.gray.900');
   --builder-elements-messages-inlineCode-background: theme('colors.gray.700');
-  --builder-elements-messages-inlineCode-text: var(--builder-elements-textPrimary);
+  --builder-elements-messages-inlineCode-text: var(
+    --builder-elements-textPrimary
+  );
 
   --builder-elements-icon-success: theme('colors.green.400');
   --builder-elements-icon-error: theme('colors.red.400');
@@ -172,18 +199,34 @@
   --builder-elements-prompt-background: theme('colors.alpha.gray.80');
 
   --builder-elements-sidebar-dropdownShadow: theme('colors.alpha.gray.30');
-  --builder-elements-sidebar-buttonBackgroundDefault: theme('colors.alpha.accent.10');
-  --builder-elements-sidebar-buttonBackgroundHover: theme('colors.alpha.accent.20');
+  --builder-elements-sidebar-buttonBackgroundDefault: theme(
+    'colors.alpha.accent.10'
+  );
+  --builder-elements-sidebar-buttonBackgroundHover: theme(
+    'colors.alpha.accent.20'
+  );
   --builder-elements-sidebar-buttonText: theme('colors.accent.500');
 
-  --builder-elements-preview-addressBar-background: var(--builder-elements-bg-depth-1);
-  --builder-elements-preview-addressBar-backgroundHover: theme('colors.alpha.white.5');
-  --builder-elements-preview-addressBar-backgroundActive: var(--builder-elements-bg-depth-1);
-  --builder-elements-preview-addressBar-text: var(--builder-elements-textSecondary);
-  --builder-elements-preview-addressBar-textActive: var(--builder-elements-textPrimary);
+  --builder-elements-preview-addressBar-background: var(
+    --builder-elements-bg-depth-1
+  );
+  --builder-elements-preview-addressBar-backgroundHover: theme(
+    'colors.alpha.white.5'
+  );
+  --builder-elements-preview-addressBar-backgroundActive: var(
+    --builder-elements-bg-depth-1
+  );
+  --builder-elements-preview-addressBar-text: var(
+    --builder-elements-textSecondary
+  );
+  --builder-elements-preview-addressBar-textActive: var(
+    --builder-elements-textPrimary
+  );
 
   --builder-elements-terminals-background: var(--builder-elements-bg-depth-1);
-  --builder-elements-terminals-buttonBackground: var(--builder-elements-bg-depth-3);
+  --builder-elements-terminals-buttonBackground: var(
+    --builder-elements-bg-depth-3
+  );
 
   --builder-elements-cta-background: theme('colors.alpha.white.10');
   --builder-elements-cta-text: theme('colors.white');
@@ -228,10 +271,14 @@
   --toastify-color-progress-error: var(--builder-elements-icon-error);
 
   /* Terminal */
-  --builder-elements-terminal-backgroundColor: var(--builder-terminal-background);
+  --builder-elements-terminal-backgroundColor: var(
+    --builder-terminal-background
+  );
   --builder-elements-terminal-textColor: var(--builder-terminal-foreground);
   --builder-elements-terminal-cursorColor: var(--builder-terminal-foreground);
-  --builder-elements-terminal-selection-backgroundColor: var(--builder-terminal-selection-background);
+  --builder-elements-terminal-selection-backgroundColor: var(
+    --builder-terminal-selection-background
+  );
   --builder-elements-terminal-color-black: var(--builder-terminal-black);
   --builder-elements-terminal-color-red: var(--builder-terminal-red);
   --builder-elements-terminal-color-green: var(--builder-terminal-green);
@@ -240,12 +287,28 @@
   --builder-elements-terminal-color-magenta: var(--builder-terminal-magenta);
   --builder-elements-terminal-color-cyan: var(--builder-terminal-cyan);
   --builder-elements-terminal-color-white: var(--builder-terminal-white);
-  --builder-elements-terminal-color-brightBlack: var(--builder-terminal-brightBlack);
-  --builder-elements-terminal-color-brightRed: var(--builder-terminal-brightRed);
-  --builder-elements-terminal-color-brightGreen: var(--builder-terminal-brightGreen);
-  --builder-elements-terminal-color-brightYellow: var(--builder-terminal-brightYellow);
-  --builder-elements-terminal-color-brightBlue: var(--builder-terminal-brightBlue);
-  --builder-elements-terminal-color-brightMagenta: var(--builder-terminal-brightMagenta);
-  --builder-elements-terminal-color-brightCyan: var(--builder-terminal-brightCyan);
-  --builder-elements-terminal-color-brightWhite: var(--builder-terminal-brightWhite);
+  --builder-elements-terminal-color-brightBlack: var(
+    --builder-terminal-brightBlack
+  );
+  --builder-elements-terminal-color-brightRed: var(
+    --builder-terminal-brightRed
+  );
+  --builder-elements-terminal-color-brightGreen: var(
+    --builder-terminal-brightGreen
+  );
+  --builder-elements-terminal-color-brightYellow: var(
+    --builder-terminal-brightYellow
+  );
+  --builder-elements-terminal-color-brightBlue: var(
+    --builder-terminal-brightBlue
+  );
+  --builder-elements-terminal-color-brightMagenta: var(
+    --builder-terminal-brightMagenta
+  );
+  --builder-elements-terminal-color-brightCyan: var(
+    --builder-terminal-brightCyan
+  );
+  --builder-elements-terminal-color-brightWhite: var(
+    --builder-terminal-brightWhite
+  );
 }

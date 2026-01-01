@@ -4,7 +4,7 @@ import { MODIFICATIONS_TAG_NAME } from './constants';
 
 export const modificationsRegex = new RegExp(
   `^<${MODIFICATIONS_TAG_NAME}>[\\s\\S]*?<\\/${MODIFICATIONS_TAG_NAME}>\\s+`,
-  'g',
+  'g'
 );
 
 interface ModifiedFile {
@@ -14,7 +14,10 @@ interface ModifiedFile {
 
 type FileModifications = Record<string, ModifiedFile>;
 
-export function computeFileModifications(files: FileMap, modifiedFiles: Map<string, string>) {
+export function computeFileModifications(
+  files: FileMap,
+  modifiedFiles: Map<string, string>
+) {
   const modifications: FileModifications = {};
 
   let hasModifiedFiles = false;
@@ -58,8 +61,17 @@ export function computeFileModifications(files: FileMap, modifiedFiles: Map<stri
  *
  * @see https://www.gnu.org/software/diffutils/manual/html_node/Unified-Format.html
  */
-export function diffFiles(fileName: string, oldFileContent: string, newFileContent: string) {
-  let unifiedDiff = createTwoFilesPatch(fileName, fileName, oldFileContent, newFileContent);
+export function diffFiles(
+  fileName: string,
+  oldFileContent: string,
+  newFileContent: string
+) {
+  let unifiedDiff = createTwoFilesPatch(
+    fileName,
+    fileName,
+    oldFileContent,
+    newFileContent
+  );
 
   const patchHeaderEnd = `--- ${fileName}\n+++ ${fileName}\n`;
   const headerEndIndex = unifiedDiff.indexOf(patchHeaderEnd);
@@ -99,7 +111,11 @@ export function fileModificationsToHTML(modifications: FileModifications) {
   const result: string[] = [`<${MODIFICATIONS_TAG_NAME}>`];
 
   for (const [filePath, { type, content }] of entries) {
-    result.push(`<${type} path=${JSON.stringify(filePath)}>`, content, `</${type}>`);
+    result.push(
+      `<${type} path=${JSON.stringify(filePath)}>`,
+      content,
+      `</${type}>`
+    );
   }
 
   result.push(`</${MODIFICATIONS_TAG_NAME}>`);

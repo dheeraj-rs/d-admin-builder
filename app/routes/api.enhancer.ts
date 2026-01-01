@@ -1,5 +1,3 @@
-// @ts-ignore
-import { type ActionFunctionArgs } from 'react-router';
 import { StreamingTextResponse, parseStreamPart } from 'ai';
 import { streamText } from '~/lib/.server/llm/stream-text';
 import { stripIndents } from '~/utils/stripIndent';
@@ -10,8 +8,6 @@ const decoder = new TextDecoder();
 export async function action(args: any) {
   return enhancerAction(args);
 }
-
-export default null;
 
 async function enhancerAction({ request }: any) {
   const { message } = (await request.json()) as { message: string };

@@ -11,7 +11,8 @@ interface Logger {
   setLevel: (level: DebugLevel) => void;
 }
 
-let currentLevel: DebugLevel = import.meta.env.VITE_LOG_LEVEL ?? import.meta.env.DEV ? 'debug' : 'info';
+let currentLevel: DebugLevel =
+  (import.meta.env.VITE_LOG_LEVEL ?? import.meta.env.DEV) ? 'debug' : 'info';
 
 const isWorker = 'HTMLRewriter' in globalThis;
 const supportsColor = !isWorker;
@@ -81,7 +82,11 @@ function log(level: DebugLevel, scope: string | undefined, messages: any[]) {
     styles.push('', scopeStyles);
   }
 
-  console.log(`%c${level.toUpperCase()}${scope ? `%c %c${scope}` : ''}`, ...styles, allMessages);
+  console.log(
+    `%c${level.toUpperCase()}${scope ? `%c %c${scope}` : ''}`,
+    ...styles,
+    allMessages
+  );
 }
 
 function getLabelStyles(color: string, textColor: string) {

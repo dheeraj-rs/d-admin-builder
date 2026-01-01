@@ -1,5 +1,3 @@
-// @ts-ignore
-import { type ActionFunctionArgs } from 'react-router';
 import {
   streamText,
   type Messages,
@@ -9,8 +7,6 @@ import {
 export async function action(args: any) {
   return chatAction(args);
 }
-
-export default null;
 
 async function chatAction({ request }: any) {
   const { messages, provider } = (await request.json()) as {

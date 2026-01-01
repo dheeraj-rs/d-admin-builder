@@ -1,7 +1,10 @@
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import type { PluggableList, Plugin } from 'unified';
-import rehypeSanitize, { defaultSchema, type Options as RehypeSanitizeOptions } from 'rehype-sanitize';
+import rehypeSanitize, {
+  defaultSchema,
+  type Options as RehypeSanitizeOptions,
+} from 'rehype-sanitize';
 import { SKIP, visit } from 'unist-util-visit';
 import type { UnistNode, UnistParent } from 'node_modules/unist-util-visit/lib';
 
@@ -61,7 +64,11 @@ const rehypeSanitizeOptions: RehypeSanitizeOptions = {
   tagNames: allowedHTMLElements,
   attributes: {
     ...defaultSchema.attributes,
-    div: [...(defaultSchema.attributes?.div ?? []), 'data*', ['className', '__boltArtifact__']],
+    div: [
+      ...(defaultSchema.attributes?.div ?? []),
+      'data*',
+      ['className', '__boltArtifact__'],
+    ],
   },
   strip: [],
 };
@@ -93,13 +100,23 @@ const limitedMarkdownPlugin: Plugin = () => {
     visit(tree, (node: UnistNode, index, parent: UnistParent) => {
       if (
         index == null ||
-        ['paragraph', 'text', 'inlineCode', 'code', 'strong', 'emphasis'].includes(node.type) ||
+        [
+          'paragraph',
+          'text',
+          'inlineCode',
+          'code',
+          'strong',
+          'emphasis',
+        ].includes(node.type) ||
         !node.position
       ) {
         return true;
       }
 
-      let value = contents.slice(node.position.start.offset, node.position.end.offset);
+      let value = contents.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
 
       if (node.type === 'heading') {
         value = `\n${value}`;

@@ -2,7 +2,10 @@ import type { WebContainer } from '@webcontainer/api';
 import type { ITerminal } from '~/types/terminal';
 import { withResolvers } from './promises';
 
-export async function newShellProcess(webcontainer: WebContainer, terminal: ITerminal) {
+export async function newShellProcess(
+  webcontainer: WebContainer,
+  terminal: ITerminal
+) {
   const args: string[] = [];
 
   // we spawn a JSH process with a fallback cols and rows in case the process is not attached yet to a visible terminal
@@ -36,7 +39,7 @@ export async function newShellProcess(webcontainer: WebContainer, terminal: ITer
 
         terminal.write(data);
       },
-    }),
+    })
   );
 
   terminal.onData((data) => {

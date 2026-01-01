@@ -9,9 +9,13 @@ export function getTerminalTheme(overrides?: ITheme): ITheme {
     cursorAccent: cssVar('--bolt-elements-terminal-cursorColorAccent'),
     foreground: cssVar('--bolt-elements-terminal-textColor'),
     background: cssVar('--bolt-elements-terminal-backgroundColor'),
-    selectionBackground: cssVar('--bolt-elements-terminal-selection-backgroundColor'),
+    selectionBackground: cssVar(
+      '--bolt-elements-terminal-selection-backgroundColor'
+    ),
     selectionForeground: cssVar('--bolt-elements-terminal-selection-textColor'),
-    selectionInactiveBackground: cssVar('--bolt-elements-terminal-selection-backgroundColorInactive'),
+    selectionInactiveBackground: cssVar(
+      '--bolt-elements-terminal-selection-backgroundColorInactive'
+    ),
 
     // ansi escape code colors
     black: cssVar('--bolt-elements-terminal-color-black'),

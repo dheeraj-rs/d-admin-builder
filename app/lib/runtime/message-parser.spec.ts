@@ -1,5 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
-import { StreamingMessageParser, type ActionCallback, type ArtifactCallback } from './message-parser';
+import {
+  StreamingMessageParser,
+  type ActionCallback,
+  type ArtifactCallback,
+} from './message-parser';
 
 interface ExpectedResult {
   output: string;
@@ -19,7 +23,9 @@ describe('StreamingMessageParser', () => {
 
   it('should allow normal HTML tags', () => {
     const parser = new StreamingMessageParser();
-    expect(parser.parse('test_id', 'Hello <strong>world</strong>!')).toBe('Hello <strong>world</strong>!');
+    expect(parser.parse('test_id', 'Hello <strong>world</strong>!')).toBe(
+      'Hello <strong>world</strong>!'
+    );
   });
 
   describe('no artifacts', () => {
@@ -27,10 +33,16 @@ describe('StreamingMessageParser', () => {
       ['Foo bar', 'Foo bar'],
       ['Foo bar <', 'Foo bar '],
       ['Foo bar <p', 'Foo bar <p'],
-      [['Foo bar <', 's', 'p', 'an>some text</span>'], 'Foo bar <span>some text</span>'],
-    ])('should correctly parse chunks and strip out bolt artifacts (%#)', (input, expected) => {
-      runTest(input, expected);
-    });
+      [
+        ['Foo bar <', 's', 'p', 'an>some text</span>'],
+        'Foo bar <span>some text</span>',
+      ],
+    ])(
+      'should correctly parse chunks and strip out bolt artifacts (%#)',
+      (input, expected) => {
+        runTest(input, expected);
+      }
+    );
   });
 
   describe('invalid or incomplete artifacts', () => {
@@ -41,12 +53,24 @@ describe('StreamingMessageParser', () => {
       ['Foo bar <bolt', 'Foo bar '],
       ['Foo bar <bolta', 'Foo bar <bolta'],
       ['Foo bar <boltA', 'Foo bar '],
-      ['Foo bar <boltArtifacs></builderArtifact>', 'Foo bar <boltArtifacs></builderArtifact>'],
-      ['Before <oltArtfiact>foo</builderArtifact> After', 'Before <oltArtfiact>foo</builderArtifact> After'],
-      ['Before <builderArtifactt>foo</builderArtifact> After', 'Before <builderArtifactt>foo</builderArtifact> After'],
-    ])('should correctly parse chunks and strip out bolt artifacts (%#)', (input, expected) => {
-      runTest(input, expected);
-    });
+      [
+        'Foo bar <boltArtifacs></builderArtifact>',
+        'Foo bar <boltArtifacs></builderArtifact>',
+      ],
+      [
+        'Before <oltArtfiact>foo</builderArtifact> After',
+        'Before <oltArtfiact>foo</builderArtifact> After',
+      ],
+      [
+        'Before <builderArtifactt>foo</builderArtifact> After',
+        'Before <builderArtifactt>foo</builderArtifact> After',
+      ],
+    ])(
+      'should correctly parse chunks and strip out bolt artifacts (%#)',
+      (input, expected) => {
+        runTest(input, expected);
+      }
+    );
   });
 
   describe('valid artifacts without actions', () => {
@@ -55,14 +79,28 @@ describe('StreamingMessageParser', () => {
         'Some text before <builderArtifact title="Some title" id="artifact_1">foo bar</builderArtifact> Some more text',
         {
           output: 'Some text before  Some more text',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 0, onActionClose: 0 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 0,
+            onActionClose: 0,
+          },
         },
       ],
       [
-        ['Some text before <boltArti', 'fact', ' title="Some title" id="artifact_1">foo</builderArtifact> Some more text'],
+        [
+          'Some text before <boltArti',
+          'fact',
+          ' title="Some title" id="artifact_1">foo</builderArtifact> Some more text',
+        ],
         {
           output: 'Some text before  Some more text',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 0, onActionClose: 0 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 0,
+            onActionClose: 0,
+          },
         },
       ],
       [
@@ -76,7 +114,12 @@ describe('StreamingMessageParser', () => {
         ],
         {
           output: 'Some text before  Some more text',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 0, onActionClose: 0 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 0,
+            onActionClose: 0,
+          },
         },
       ],
       [
@@ -89,7 +132,12 @@ describe('StreamingMessageParser', () => {
         ],
         {
           output: 'Some text before  Some more text',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 0, onActionClose: 0 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 0,
+            onActionClose: 0,
+          },
         },
       ],
       [
@@ -104,7 +152,12 @@ describe('StreamingMessageParser', () => {
         ],
         {
           output: 'Some text before  Some more text',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 0, onActionClose: 0 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 0,
+            onActionClose: 0,
+          },
         },
       ],
       [
@@ -117,19 +170,32 @@ describe('StreamingMessageParser', () => {
         ],
         {
           output: 'Some text before  Some more text',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 0, onActionClose: 0 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 0,
+            onActionClose: 0,
+          },
         },
       ],
       [
         'Before <builderArtifact title="Some title" id="artifact_1">foo</builderArtifact> After',
         {
           output: 'Before  After',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 0, onActionClose: 0 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 0,
+            onActionClose: 0,
+          },
         },
       ],
-    ])('should correctly parse chunks and strip out bolt artifacts (%#)', (input, expected) => {
-      runTest(input, expected);
-    });
+    ])(
+      'should correctly parse chunks and strip out bolt artifacts (%#)',
+      (input, expected) => {
+        runTest(input, expected);
+      }
+    );
   });
 
   describe('valid artifacts with actions', () => {
@@ -138,23 +204,39 @@ describe('StreamingMessageParser', () => {
         'Before <builderArtifact title="Some title" id="artifact_1"><builderAction type="shell">npm install</builderAction></builderArtifact> After',
         {
           output: 'Before  After',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 1, onActionClose: 1 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 1,
+            onActionClose: 1,
+          },
         },
       ],
       [
         'Before <builderArtifact title="Some title" id="artifact_1"><builderAction type="shell">npm install</builderAction><builderAction type="file" filePath="index.js">some content</builderAction></builderArtifact> After',
         {
           output: 'Before  After',
-          callbacks: { onArtifactOpen: 1, onArtifactClose: 1, onActionOpen: 2, onActionClose: 2 },
+          callbacks: {
+            onArtifactOpen: 1,
+            onArtifactClose: 1,
+            onActionOpen: 2,
+            onActionClose: 2,
+          },
         },
       ],
-    ])('should correctly parse chunks and strip out bolt artifacts (%#)', (input, expected) => {
-      runTest(input, expected);
-    });
+    ])(
+      'should correctly parse chunks and strip out bolt artifacts (%#)',
+      (input, expected) => {
+        runTest(input, expected);
+      }
+    );
   });
 });
 
-function runTest(input: string | string[], outputOrExpectedResult: string | ExpectedResult) {
+function runTest(
+  input: string | string[],
+  outputOrExpectedResult: string | ExpectedResult
+) {
   let expected: ExpectedResult;
 
   if (typeof outputOrExpectedResult === 'string') {
@@ -198,8 +280,10 @@ function runTest(input: string | string[], outputOrExpectedResult: string | Expe
   for (const name in expected.callbacks) {
     const callbackName = name;
 
-    expect(callbacks[callbackName as keyof typeof callbacks]).toHaveBeenCalledTimes(
-      expected.callbacks[callbackName as keyof typeof expected.callbacks] ?? 0,
+    expect(
+      callbacks[callbackName as keyof typeof callbacks]
+    ).toHaveBeenCalledTimes(
+      expected.callbacks[callbackName as keyof typeof expected.callbacks] ?? 0
     );
   }
 

@@ -1,7 +1,5 @@
 import { useStore } from '@nanostores/react';
 // @ts-ignore
-import type { LinksFunction } from 'react-router';
-// @ts-ignore
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse } from 'react-router';
 import tailwindReset from '@unocss/reset/tailwind-compat.css?url';
 import { themeStore } from './lib/stores/theme';

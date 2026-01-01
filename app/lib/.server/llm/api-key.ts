@@ -9,5 +9,8 @@ export function getAPIKey(cloudflareEnv: Env) {
 }
 
 export function getGoogleAPIKey(cloudflareEnv: Env) {
-  return env.GOOGLE_GENERATIVE_AI_API_KEY || cloudflareEnv.GOOGLE_GENERATIVE_AI_API_KEY;
+  return (
+    env.GOOGLE_GENERATIVE_AI_API_KEY ||
+    cloudflareEnv.GOOGLE_GENERATIVE_AI_API_KEY
+  );
 }

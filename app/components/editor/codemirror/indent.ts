@@ -1,6 +1,11 @@
 import { indentLess } from '@codemirror/commands';
 import { indentUnit } from '@codemirror/language';
-import { EditorSelection, EditorState, Line, type ChangeSpec } from '@codemirror/state';
+import {
+  EditorSelection,
+  EditorState,
+  Line,
+  type ChangeSpec,
+} from '@codemirror/state';
 import { EditorView, type KeyBinding } from '@codemirror/view';
 
 export const indentKeyBinding: KeyBinding = {
@@ -19,8 +24,8 @@ function indentMore({ state, dispatch }: EditorView) {
       changeBySelectedLine(state, (from, to, changes) => {
         changes.push({ from, to, insert: state.facet(indentUnit) });
       }),
-      { userEvent: 'input.indent' },
-    ),
+      { userEvent: 'input.indent' }
+    )
   );
 
   return true;
@@ -28,7 +33,12 @@ function indentMore({ state, dispatch }: EditorView) {
 
 function changeBySelectedLine(
   state: EditorState,
-  cb: (from: number, to: number | undefined, changes: ChangeSpec[], line: Line) => void,
+  cb: (
+    from: number,
+    to: number | undefined,
+    changes: ChangeSpec[],
+    line: Line
+  ) => void
 ) {
   return state.changeByRange((range) => {
     const changes: ChangeSpec[] = [];
@@ -62,7 +72,10 @@ function changeBySelectedLine(
 
     return {
       changes,
-      range: EditorSelection.range(changeSet.mapPos(range.anchor, 1), changeSet.mapPos(range.head, 1)),
+      range: EditorSelection.range(
+        changeSet.mapPos(range.anchor, 1),
+        changeSet.mapPos(range.head, 1)
+      ),
     };
   });
 }

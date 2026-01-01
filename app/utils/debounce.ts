@@ -1,4 +1,7 @@
-export function debounce<Args extends any[]>(fn: (...args: Args) => void, delay = 100) {
+export function debounce<Args extends any[]>(
+  fn: (...args: Args) => void,
+  delay = 100
+) {
   if (delay === 0) {
     return fn;
   }
