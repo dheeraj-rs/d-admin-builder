@@ -18,8 +18,8 @@ export default defineConfig((config) => {
       nodePolyfills({
         include: ['path', 'buffer'],
       }),
-      reactRouter(),
       UnoCSS(),
+      reactRouter(),
       tsconfigPaths(),
       chrome129IssuePlugin(),
       crossOriginIsolationPlugin(),

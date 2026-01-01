@@ -11,6 +11,8 @@ export async function action(args: any) {
   return enhancerAction(args);
 }
 
+export default null;
+
 async function enhancerAction({ request }: any) {
   const { message } = (await request.json()) as { message: string };
 
