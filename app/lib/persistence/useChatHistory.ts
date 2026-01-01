@@ -1,3 +1,4 @@
+// @ts-ignore
 import { useLoaderData, useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import { atom } from 'nanostores';

@@ -1,7 +1,7 @@
-import type { AppLoadContext, EntryContext } from 'react-router';
+import type { AppLoadContext } from 'react-router';
 // @ts-ignore
 import { ServerRouter } from 'react-router';
-import { isbot } from 'isbot';
+
 import { renderToPipeableStream } from 'react-dom/server';
 import { PassThrough } from 'stream';
 
@@ -9,7 +9,7 @@ export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  remixContext: any,
   loadContext: AppLoadContext
 ) {
   return new Promise((resolve, reject) => {
